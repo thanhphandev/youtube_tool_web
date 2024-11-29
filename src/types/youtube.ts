@@ -15,8 +15,8 @@ export interface VideoSummary {
 }
 
 export interface ThumbnailInfo {
-  default: string;
-  medium: string;
-  high: string;
-  maxres?: string;
+  default: string | null;
+  medium: string | null;
+  high: string | null;
+  maxres?: string | null;
 }

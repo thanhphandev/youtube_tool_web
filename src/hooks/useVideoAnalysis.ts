@@ -10,11 +10,10 @@ export const useVideoAnalysis = () => {
   const [loading, setLoading] = useState(false);
   const [summary, setSummary] = useState<VideoSummaryType>({ title: '', content: '' });
   const [stats, setStats] = useState<VideoStatsType>({ views: 0, likes: 0, comments: 0, uploadDate: '', qualityScore: 0 });
-  const [thumbnails, setThumbnails] = useState<ThumbnailInfo>({ default: '', medium: '', high: '', maxres: '' });
+  const [thumbnails, setThumbnails] = useState<ThumbnailInfo>();
 
   const analyzeVideo = async (url: string) => {
     setLoading(true);
-    console.log('url', ROOT_DOMAIN);
     try {
       const [summarizeRes, statsRes, thumbsRes] = await Promise.all([
         axios.post(`${ROOT_DOMAIN}/api/v1/summarize-video`, { video_url: url }),

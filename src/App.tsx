@@ -5,6 +5,7 @@ import { VideoStats } from './components/VideoStats';
 import { ThumbnailDownloader } from './components/ThumbnailDownloader';
 import { Toaster, toast } from 'react-hot-toast';
 import { useVideoAnalysis } from './hooks/useVideoAnalysis';
+import Loading from './components/ui/Loading';
 
 function App() {
   const { loading, summary, stats, thumbnails, analyzeVideo } = useVideoAnalysis();
@@ -17,7 +18,7 @@ function App() {
       toast.error('Failed to analyze video. Please try again.');
     }
   };
-
+  
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="container mx-auto px-4 py-8">
@@ -30,15 +31,16 @@ function App() {
           <VideoInput onSubmit={handleAnalyze} isLoading={loading} />
         </div>
 
-        {!loading && (
+        {loading ? <Loading /> 
+        : (
           <div className="space-y-6">
             <VideoSummary summary={summary} />
             <VideoStats stats={stats} />
-            <ThumbnailDownloader thumbnails={thumbnails} />
+            {thumbnails && <ThumbnailDownloader thumbnails={thumbnails} />}
           </div>
         )}
 
-        <Toaster position="bottom-right" />
+        <Toaster position="top-right" />
       </div>
     </div>
   );
